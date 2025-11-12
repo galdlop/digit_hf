@@ -17,4 +17,4 @@ This repository contains code and reconstructed individual-level data to reprodu
    - `time` (time to event or censoring, same units as figure)
    - `status` (1=event, 0=censored)
    - `arm` (0=control/placebo, 1=treatment/digitoxin)
-2. Run the code
+2. Run the code.
