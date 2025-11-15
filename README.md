@@ -6,6 +6,7 @@ This repository contains code and reconstructed individual-level data to reprodu
 - Scaled Schoenfeld Residuals vs. Time.
 - Log-Log Survival Curves.
 - Time-varying hazard ratio estimation (Cox with time interaction).
+- Modeling and plotting a Landmark Analysis at 12 months.
 - Plots and scripts to reproduce figures.
 
 **Important note:** Data in `/data/reconstructed_ipd.csv` are reconstructed from published curves (Guyot et al. approach). They are not original patient-level data and should be interpreted accordingly.
