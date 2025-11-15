@@ -347,8 +347,8 @@ plot_late <- ggsurvplot(
     x = "Time Since Landmark (Months)",
     y = ""
   ) +
-  annotate("text", x = 5, y = 0.58, label = hr_text_late, hjust = 0, family = "raleway", fontface = "bold") +
-  scale_y_continuous(limits = c(0, 0.7), labels = scales::percent) +
+  annotate("text", x = 5, y = 0.5, label = hr_text_late, hjust = 0, family = "raleway", fontface = "bold") +
+  scale_y_continuous(limits = c(0, 0.6), labels = scales::percent) +
   theme_minimal(base_family = "raleway") +
   theme(
     plot.title = element_text(size = 14, face = "bold"),
@@ -375,5 +375,6 @@ combined_landmark_plot
 
 # Optional: save the plot
 # ggsave("landmark_analysis_12m.png", plot = combined_landmark_plot, width = 12, height = 7, dpi = 300, bg = "white")
+
 
 
