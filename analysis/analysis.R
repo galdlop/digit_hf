@@ -8,8 +8,8 @@
 #
 # Analysis steps:
 # 0. Reproducing Cumulative Events Curves from DIGIT-HF trial
-# 1. Visual check using scaled Schoenfeld residuals.
-# 2. Visual check using log-log survival curves.
+# 1. PH assumption check using scaled Schoenfeld residuals.
+# 2. PH assumption check using log-log survival curves.
 # 3. Modeling and plotting a time-dependent hazard ratio.
 # 4. Modeling and plotting a Landmark Analysis at 12 months.
 # -----------------------------------------------------------------------------
@@ -375,3 +375,4 @@ combined_landmark_plot
 
 # Optional: save the plot
 # ggsave("landmark_analysis_12m.png", plot = combined_landmark_plot, width = 12, height = 7, dpi = 300, bg = "white")
+
