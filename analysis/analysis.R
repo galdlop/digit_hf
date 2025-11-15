@@ -7,9 +7,11 @@
 # Kaplan-Meier curves.
 #
 # Analysis steps:
+# 0. Reproducing Cumulative Events Curves from DIGIT-HF trial
 # 1. Visual check using scaled Schoenfeld residuals.
 # 2. Visual check using log-log survival curves.
 # 3. Modeling and plotting a time-dependent hazard ratio.
+# 4. Modeling and plotting a Landmark Analysis at 12 months.
 # -----------------------------------------------------------------------------
 
 
@@ -258,3 +260,118 @@ ggsave("ph_assumption_check_DIGIT-HF.png",
        dpi = 300,
        bg = "white")
 
+
+######## --- LANDMARK ANALYSIS: 12 MONTHS ---
+# =============================================================================
+
+# landmark= 12 months
+landmark_time <- 12
+
+
+# STEP 1: EARLY PERIOD ANALYSIS (0 to 12 months)
+# -----------------------------------------------------------------------------
+
+df_early <- ipd_digit_hf %>%
+  mutate(
+    time_early = if_else(time > landmark_time, landmark_time, time),
+    event_early = if_else(time > landmark_time, 0, event) # 0 = censurado
+  )
+
+# Cox model for 12 months
+cox_early <- coxph(Surv(time_early, event_early) ~ arm, data = df_early)
+
+# Extract HR
+hr_ci_early <- tidy(cox_early, exponentiate = TRUE, conf.int = TRUE)
+hr_text_early <- sprintf(
+  "HR for 0-12 months:\n%.2f (95%% CI: %.2f - %.2f)",
+  hr_ci_early$estimate,
+  hr_ci_early$conf.low,
+  hr_ci_early$conf.high
+)
+
+# Early period plot
+plot_early <- ggsurvplot(
+  survfit(Surv(time_early, event_early) ~ arm, data = df_early),
+  fun = "event",
+  palette = c("#939598", "#026F99"),
+  conf.int = FALSE,
+  censor = FALSE,
+  legend.labs = c("Placebo", "Digitoxin"),
+  legend.title = "",
+  xlim = c(0, landmark_time) 
+)$plot +
+  labs(
+    title = "Early Period (0-12 Months)",
+    x = "Time in Months",
+    y = "Cumulative Incidence"
+  ) +
+  annotate("text", x = 1, y = 0.25, label = hr_text_early, hjust = 0, family = "raleway", fontface = "bold") +
+  scale_y_continuous(limits = c(0, 0.3), labels = scales::percent) +
+  theme_minimal(base_family = "raleway") +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "top", 
+        legend.text = element_text(size=12))
+
+
+# STEP 2: LATE PERIOD ANALYSIS (POST-12 months)
+# -----------------------------------------------------------------------------
+
+# Create late period dataset
+df_landmark_cohort <- ipd_digit_hf %>%
+  filter(time > landmark_time) %>%
+  mutate(time_late = time - landmark_time)
+
+# Model Cox for late period
+cox_late <- coxph(Surv(time_late, event) ~ arm, data = df_landmark_cohort)
+
+# Extract HR
+hr_ci_late <- tidy(cox_late, exponentiate = TRUE, conf.int = TRUE)
+hr_text_late <- sprintf(
+  "HR for >12 months:\n%.2f (95%% CI: %.2f - %.2f)",
+  hr_ci_late$estimate,
+  hr_ci_late$conf.low,
+  hr_ci_late$conf.high
+)
+
+# Late period plot
+plot_late <- ggsurvplot(
+  survfit(Surv(time_late, event) ~ arm, data = df_landmark_cohort),
+  fun = "event",
+  palette = c("#939598", "#026F99"),
+  conf.int = FALSE,
+  censor = FALSE,
+  legend.title = "",
+)$plot +
+  labs(
+    title = "Late Period (>12 Months)",
+    x = "Time Since Landmark (Months)",
+    y = ""
+  ) +
+  annotate("text", x = 5, y = 0.58, label = hr_text_late, hjust = 0, family = "raleway", fontface = "bold") +
+  scale_y_continuous(limits = c(0, 0.7), labels = scales::percent) +
+  theme_minimal(base_family = "raleway") +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    legend.position = "none",
+    #axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank()
+  )
+
+
+# STEP 3: COMBINE PLOTS
+# -----------------------------------------------------------------------------
+
+combined_landmark_plot <- plot_early + plot_late +
+  plot_annotation(
+    title = "Landmark Analysis at 12 Months",
+    subtitle = "The treatment effect appears to be concentrated in the first year.",
+    theme = theme(
+      plot.title = element_text(size = 18, face = "bold", hjust = 0.5, family = "raleway"),
+      plot.subtitle = element_text(size = 12, hjust = 0.5, family = "raleway", color = "gray20")
+    )
+  )
+
+combined_landmark_plot
+
+# Optional: save the plot
+# ggsave("landmark_analysis_12m.png", plot = combined_landmark_plot, width = 12, height = 7, dpi = 300, bg = "white")
