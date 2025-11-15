@@ -363,7 +363,7 @@ plot_late <- ggsurvplot(
 
 combined_landmark_plot <- plot_early + plot_late +
   plot_annotation(
-    title = "Landmark Analysis at 12 Months",
+    title = "DIGIT-HF: Landmark Analysis at 12 Months for Primary Outcome",
     subtitle = "The treatment effect appears to be concentrated in the first year.",
     theme = theme(
       plot.title = element_text(size = 18, face = "bold", hjust = 0.5, family = "raleway"),
@@ -375,4 +375,5 @@ combined_landmark_plot
 
 # Optional: save the plot
 # ggsave("landmark_analysis_12m.png", plot = combined_landmark_plot, width = 12, height = 7, dpi = 300, bg = "white")
+
 
