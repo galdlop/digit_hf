@@ -130,11 +130,6 @@ This project is released under the **MIT License**, permitting reuse and adaptat
 
 ---
 
-## 🙌 Acknowledgements  
-Thanks to the developers of `survival`, `survminer`, `rstpm2`, and all contributors to open-source R tools for survival analysis.
-
----
-
 ## 💬 Contact  
 For questions or collaboration opportunities:  
 **Your name — Your institution**  
