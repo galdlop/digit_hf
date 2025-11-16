@@ -1,139 +1,192 @@
-# Reanalysis of the DIGIT-HF Trial: Time-Varying Treatment Effects and Violation of Proportional Hazards
+# Revisiting the DIGIT-HF Trial: A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Made with R](https://img.shields.io/badge/Made%20with-R-276DC3.svg)]()
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![medRxiv preprint](https://img.shields.io/badge/medRxiv-preprint-blue)](LINK_TO_YOUR_MEDRXIV_PREPRINT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the **exact reproducible analysis** used in the medRxiv manuscript:
+## 📋 Overview
 
-**_Time-Varying Treatment Effects and Violation of Proportional Hazards in the DIGIT-HF Trial_**  
-_Preprint on medRxiv (2025)._  
-👉 *(Link to be added once available)*
+This repository contains the **complete reproducible analysis** for our methodological re-analysis of the DIGIT-HF trial, available as a preprint on medRxiv: [LINK TO PAPER].
 
-The aim is to evaluate whether the treatment effect of digitoxin in DIGIT-HF is **constant over time**, and to provide **time-varying estimands** as recommended by contemporary guidelines for survival analysis and regulatory reporting.
+**Citation:**
+```
+Aldama-López G, López-Vázquez D, Rebollal-Leal F. Revisiting the DIGIT-HF Trial: 
+A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects. 
+medRxiv. 2025. doi: [DOI WHEN AVAILABLE]
+```
+
+**Original trial:**
+```
+Bavendiek U, et al. Digitoxin in Patients with Heart Failure and Reduced Ejection 
+Fraction. N Engl J Med. 2025;393(12):1155-1165. doi: 10.1056/NEJMoa2408504
+```
+
+## 🎯 Key Findings
+
+Our re-analysis reveals that the DIGIT-HF trial violates the proportional hazards assumption (p=0.019), demonstrating that:
+
+- ✅ **Early benefit** (0-18 months): HR 0.69 (95% CI: 0.54-0.88), p<0.001
+- ❌ **No late benefit** (>18 months): HR 0.99 (95% CI: 0.77-1.28), p=0.94
+- ⚠️ The reported constant HR of 0.82 masks this temporal heterogeneity
+
+## 📊 Repository Contents
+
+### Data
+- `/data/ipd_digit_hf1.csv` - Reconstructed individual patient data using the Guyot et al. (2012) method
+  - **Important:** These are reconstructed data from published Kaplan-Meier curves, not original trial data
+
+### Code
+- `digit_hf_ph_code.R` - Complete analysis pipeline including:
+  - Reproduction of published Kaplan-Meier curves
+  - Cox proportional hazards model
+  - Formal testing of PH assumption (Schoenfeld residuals)
+  - Log-log survival curves
+  - Time-dependent hazard ratio modeling (Royston-Parmar flexible parametric models)
+  - Landmark analysis at 18 months
+
+### Figures
+All figures can be reproduced by running the R script:
+- **Figure 1:** Replication of cumulative incidence curves
+- **Figure 2:** Log-log survival curves
+- **Figure 3:** Scaled Schoenfeld residuals
+- **Figure 4:** Time-dependent hazard ratio
+- **Figure 5:** Landmark analysis (early vs late periods)
+- **Figure 6:** Graphical abstract (combined)
+
+## 🔧 Requirements
+
+### R Version
+- R ≥ 4.0.0
+
+### Required Packages
+```r
+# Install all required packages
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  tidyverse,    # Data manipulation and plotting (≥ 2.0.0)
+  survival,     # Survival analysis (≥ 3.5-0)
+  survminer,    # Survival plots (≥ 0.4.9)
+  rstpm2,       # Flexible parametric survival models (≥ 1.6.0)
+  broom,        # Tidy model outputs (≥ 1.0.0)
+  patchwork,    # Combine plots (≥ 1.1.0)
+  scales,       # Plot scales (≥ 1.2.0)
+  showtext      # Custom fonts (optional)
+)
+```
+
+## 🚀 How to Reproduce
+
+### Quick Start
+```r
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/digit-hf-reanalysis.git
+cd digit-hf-reanalysis
+
+# Open R/RStudio and run
+source("digit_hf_ph_code.R")
+```
+
+### Step-by-Step
+
+1. **Clone or download this repository**
+```bash
+   git clone https://github.com/YOUR_USERNAME/digit-hf-reanalysis.git
+```
+
+2. **Ensure data file is in place**
+   - The reconstructed IPD should be at: `data/ipd_digit_hf.csv`
+   - Columns required:`time`, `event`, `arm`
+
+3. **Run the analysis**
+```r
+   # Open R or RStudio
+   # Set working directory to the repository folder
+   setwd("path/to/digit-hf-reanalysis")
+   
+   # Run the complete analysis
+   source("digit_hf_ph_code.R")
+```
+
+4. **Output**
+   - All figures will be generated and displayed
+   - High-resolution PNG files will be saved automatically
+   - Statistical test results will be printed to console
+
+## 📈 Data Structure
+
+The reconstructed IPD file (`ipd_digit_hf.csv`) contains the following columns:
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `time` | numeric | Time to event or censoring (in months) |
+| `event` | integer | Event indicator (1=event occurred, 0=censored) |
+| `arm` | integer | Treatment arm (0=placebo, 1=digitoxin) |
+
+
+## 📝 Methods
+
+### Data Reconstruction
+Individual patient data were reconstructed from published Kaplan-Meier curves using the algorithm described by:
+> Guyot P, et al. Enhanced secondary analysis of survival data: reconstructing the data from published Kaplan-Meier survival curves. BMC Med Res Methodol. 2012;12:9.
+
+### Statistical Analysis
+- **Cox proportional hazards model:** Standard time-to-event analysis
+- **Schoenfeld residuals test:** Formal test for PH assumption (cox.zph function)
+- **Flexible parametric models:** Royston-Parmar models with time-varying coefficients (rstpm2 package)
+- **Landmark analysis:** Conditional analysis at 18 months to separate early vs late effects
+
+All analyses were conducted in R version 4.2. Complete session info available in the script output.
+
+## ⚠️ Important Limitations
+
+1. **Reconstructed data:** The IPD used in this analysis are reconstructed from published curves, not original trial data
+2. **Limited variables:** Only time, event status, and treatment arm are available
+3. **No access to:** Baseline characteristics, biomarkers, adherence data, or competing risks information
+4. **Landmark choice:** The choice of 18 months as the landmark time was pre-specified based on the time-dependent HR crossing the null effect
+
+## 📚 References
+
+1. Bavendiek U, et al. Digitoxin in Patients with Heart Failure and Reduced Ejection Fraction. N Engl J Med. 2025;393(12):1155-1165.
+
+2. Guyot P, et al. Enhanced secondary analysis of survival data: reconstructing the data from published Kaplan-Meier survival curves. BMC Med Res Methodol. 2012;12:9.
+
+3. Cox DR. Regression Models and Life-Tables. J R Stat Soc Series B. 1972;34(2):187-220.
+
+4. Royston P, Parmar MK. Flexible parametric proportional-hazards and proportional-odds models for censored survival data. Stat Med. 2002;21(15):2175-97.
+
+5. Stensrud MJ, Hernán MA. Why Test for Proportional Hazards? JAMA. 2020;323(14):1401-1402.
+
+## 👥 Authors
+
+- **Guillermo Aldama-López, MD, PhD** - University Hospital of A Coruña, INIBIC
+
+- **Domingo López-Vázquez, MD** - University Hospital of A Coruña, INIBIC
+
+- **Fernando Rebollal-Leal, MD** - University Hospital of A Coruña, INIBIC
+
+## 🤝 Contributing
+
+We welcome feedback and suggestions. Please:
+1. Open an issue for bugs or questions
+2. Submit pull requests for improvements
+3. Cite our work if you use or extend this analysis
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+We thank the DIGIT-HF investigators for publishing detailed Kaplan-Meier curves that enabled this secondary analysis. This re-analysis is intended as a constructive methodological contribution to improve the interpretation of clinical trial results.
+
+## 📞 Contact
+
+For questions or collaboration inquiries, please contact:
+- **Corresponding author:** Guillermo Aldama-López (guillermo.aldama.lopez@sergas.es)
+- **Issues:** Use the [GitHub Issues](https://github.com/YOUR_USERNAME/digit-hf-reanalysis/issues) page
 
 ---
 
-## 🔍 Overview
+**Disclaimer:** This is an independent methodological re-analysis. The authors have no financial or personal conflicts of interest related to the DIGIT-HF trial or digitoxin.
 
-This repository includes:
-
-### **1. Reconstruction of Individual Patient Data (IPD)**
-- Using the validated **Guyot et al. (2012)** algorithm.  
-- Reproduces the Kaplan–Meier curves from the published DIGIT-HF trial.  
-- Successfully replicates the primary Cox hazard ratio (HR 0.82).
-
-### **2. Proportional Hazards Diagnostics**
-- Cox PH model  
-- Schoenfeld residuals + **cox.zph** global test  
-- Scaled Schoenfeld residuals vs. time  
-- Log–log survival curves  
-- Visual and statistical confirmation of **non-proportional hazards**
-
-### **3. Time-Varying Hazard Ratio**
-- Flexible parametric survival model (**Royston–Parmar**, `stpm2`)  
-- HR(t) curve showing early benefit followed by attenuation  
-- Comparison with the Cox average hazard ratio (AHR)
-
-### **4. Landmark Estimands**
-- Period-specific hazard ratios at 6, 12, 18, 24 months  
-- Estimates aligned with modern estimand frameworks  
-- Demonstrates time-limited benefit
-
-### **5. Figures and Scripts**
-All scripts produce the figures used in the manuscript, stored in:
-
----
-
-## 📁 Repository Structure
-.
-├── R/
-│ ├── 01_cox_PH_diagnostics.R
-│ ├── 02_time_varying_HR_stpm2.R
-│ ├── 03_landmark_estimands.R
-│ └── utils_plotting.R
-│
-├── data/
-│ └── reconstructed_ipd.csv
-│
-├── figures/
-│ └── (auto-generated plots)
-│
-├── README.md
-├── LICENSE
-└── zenodo.json
-
-
----
-
-## 🔬 Data Information (Important)
-
-The file:
-
-/data/reconstructed_ipd.csv
-
-contains **reconstructed** patient-level data derived from digitized Kaplan–Meier curves using:
-
-> Guyot P, Ades AE, Ouwens MJNM, Welton NJ.  
-> *Enhanced secondary analysis of survival data: reconstructing IPD from published Kaplan–Meier curves.*  
-> BMC Med Res Methodol. 2012.
-
-These are **not original trial data** from DIGIT-HF.  
-Reconstructed datasets typically achieve excellent accuracy for reproducing trial results, but small deviations in event time alignment may occur.
-
-All analyses and figures should be interpreted accordingly.
-
----
-
-## ▶️ How to Reproduce the Analysis
-
-1. Place your reconstructed IPD file in:
-
-
-
-/data/reconstructed_ipd.csv
-
-
-with the following columns:
-
-| Column | Description |
-|--------|-------------|
-| `id` | Unique subject identifier |
-| `time` | Time to event or censoring (same units as trial KM curves) |
-| `status` | 1 = event, 0 = censored |
-| `arm` | 0 = control/placebo, 1 = digitoxin |
-
-2. Run any of the scripts in `/R/`.
-
-The figures and diagnostic outputs will be generated automatically in `/figures/`.
-
----
-
-## 📘 Citation
-
-If you use this code or analysis in your work, please cite:
-
-**Preprint (medRxiv):**  
-_“Time-Varying Treatment Effects and Violation of Proportional Hazards in the DIGIT-HF Trial”_  
-_Link to be added_
-
-**Software / Code (Zenodo):**  
-
-
-[Your Name]. Reanalysis of the DIGIT-HF Trial: Time-Varying Treatment Effects. Zenodo. DOI:10.5281/zenodo.XXXXXXX
-
-
----
-
-## 📄 License  
-This project is released under the **MIT License**, permitting reuse and adaptation with attribution.
-
----
-
-## 💬 Contact  
-For questions or collaboration opportunities:  
-**Your name — Your institution**  
-📧 **your.email@institution.org**  
-ORCID: https://orcid.org/0000-0000-0000-0000
-
+**Last updated:** [DATE]
 
