@@ -70,10 +70,7 @@ All scripts produce the figures used in the manuscript, stored in:
 
 The file:
 
-
-
 /data/reconstructed_ipd.csv
-
 
 contains **reconstructed** patient-level data derived from digitized Kaplan–Meier curves using:
 
