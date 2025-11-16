@@ -11,7 +11,8 @@
 # 1. PH assumption check using scaled Schoenfeld residuals.
 # 2. PH assumption check using log-log survival curves.
 # 3. Modeling and plotting a time-dependent hazard ratio.
-# 4. Modeling and plotting a Landmark Analysis at 12 months.
+# 4. Modeling and plotting a Landmark Analysis at 18 months.
+# 5. Graphical abstract
 # -----------------------------------------------------------------------------
 
 
@@ -261,14 +262,14 @@ ggsave("ph_assumption_check_DIGIT-HF.png",
        bg = "white")
 
 
-######## --- LANDMARK ANALYSIS: 12 MONTHS ---
+# ----- LANDMARK ANALYSIS: 18 MONTHS -----
 # =============================================================================
 
-# landmark= 12 months
-landmark_time <- 12
+# landmark= 18 months
+landmark_time <- 18
 
 
-# STEP 1: EARLY PERIOD ANALYSIS (0 to 12 months)
+# STEP 1: EARLY PERIOD ANALYSIS (0 to 18 months)
 # -----------------------------------------------------------------------------
 
 df_early <- ipd_digit_hf %>%
@@ -277,13 +278,15 @@ df_early <- ipd_digit_hf %>%
     event_early = if_else(time > landmark_time, 0, event) # 0 = censurado
   )
 
-# Cox model for 12 months
+# Cox model for 18 months
 cox_early <- coxph(Surv(time_early, event_early) ~ arm, data = df_early)
+ph_cox_early <- cox.zph(cox_early)
+p_cox_early <- ph_cox_early$table[1,"p"]
 
 # Extract HR
 hr_ci_early <- tidy(cox_early, exponentiate = TRUE, conf.int = TRUE)
 hr_text_early <- sprintf(
-  "HR for 0-12 months:\n%.2f (95%% CI: %.2f - %.2f)",
+  "HR for 0-18 months:\n%.2f (95%% CI: %.2f - %.2f)",
   hr_ci_early$estimate,
   hr_ci_early$conf.low,
   hr_ci_early$conf.high
@@ -301,19 +304,22 @@ plot_early <- ggsurvplot(
   xlim = c(0, landmark_time) 
 )$plot +
   labs(
-    title = "Early Period (0-12 Months)",
+    title = "Early Period (0-18 Months)",
     x = "Time in Months",
     y = "Cumulative Incidence"
   ) +
-  annotate("text", x = 1, y = 0.25, label = hr_text_early, hjust = 0, family = "raleway", fontface = "bold") +
-  scale_y_continuous(limits = c(0, 0.3), labels = scales::percent) +
+  annotate("text", x = 0.5, y = 0.5, label = hr_text_early, hjust = 0, family = "raleway", fontface = "bold") +
+  annotate("text",x=0.5, y=0.65, hjust=0,family = "raleway", fontface = "plain",
+           label=paste0("Test for Non-Proportionality: p-value = ", format.pval(p_cox_early, digits = 2, eps = 0.001)))+
+  scale_y_continuous(limits = c(0, 0.65), labels = scales::percent) +
+  scale_x_continuous(breaks = breaks_width(2)) +
   theme_minimal(base_family = "raleway") +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "top", 
         legend.text = element_text(size=12))
 
 
-# STEP 2: LATE PERIOD ANALYSIS (POST-12 months)
+# STEP 2: LATE PERIOD ANALYSIS (POST-18 months)
 # -----------------------------------------------------------------------------
 
 # Create late period dataset
@@ -323,11 +329,13 @@ df_landmark_cohort <- ipd_digit_hf %>%
 
 # Model Cox for late period
 cox_late <- coxph(Surv(time_late, event) ~ arm, data = df_landmark_cohort)
+ph_cox_late <- cox.zph(cox_late)
+p_cox_late <- ph_cox_late$table[1,"p"]
 
 # Extract HR
 hr_ci_late <- tidy(cox_late, exponentiate = TRUE, conf.int = TRUE)
 hr_text_late <- sprintf(
-  "HR for >12 months:\n%.2f (95%% CI: %.2f - %.2f)",
+  "HR for >18 months:\n%.2f (95%% CI: %.2f - %.2f)",
   hr_ci_late$estimate,
   hr_ci_late$conf.low,
   hr_ci_late$conf.high
@@ -343,12 +351,15 @@ plot_late <- ggsurvplot(
   legend.title = "",
 )$plot +
   labs(
-    title = "Late Period (>12 Months)",
+    title = "Late Period (>18 Months)",
     x = "Time Since Landmark (Months)",
     y = ""
   ) +
   annotate("text", x = 5, y = 0.5, label = hr_text_late, hjust = 0, family = "raleway", fontface = "bold") +
-  scale_y_continuous(limits = c(0, 0.6), labels = scales::percent) +
+  annotate("text",x=5, y=0.65, hjust=0,family = "raleway", fontface = "plain",
+           label=paste0("Test for Non-Proportionality: p-value = ", format.pval(p_cox_late, digits = 2, eps = 0.001)))+
+  scale_y_continuous(limits = c(0, 0.65), labels = scales::percent) +
+  scale_x_continuous(breaks = breaks_width(18)) +
   theme_minimal(base_family = "raleway") +
   theme(
     plot.title = element_text(size = 14, face = "bold"),
@@ -363,18 +374,37 @@ plot_late <- ggsurvplot(
 
 combined_landmark_plot <- plot_early + plot_late +
   plot_annotation(
-    title = "DIGIT-HF: Landmark Analysis at 12 Months for Primary Outcome",
-    subtitle = "The treatment effect appears to be concentrated in the first year.",
+    title = "Landmark Analysis at 18 Months for Primary Outcome",
+    subtitle = "The treatment effect appears to be concentrated in the first year and a half.",
     theme = theme(
-      plot.title = element_text(size = 18, face = "bold", hjust = 0.5, family = "raleway"),
-      plot.subtitle = element_text(size = 12, hjust = 0.5, family = "raleway", color = "gray20")
+      plot.title = element_text(size = 14, face = "bold", hjust = 0, family = "raleway"),
+      plot.subtitle = element_text(size = 12, hjust = 0, family = "raleway", color = "gray20")
     )
   )
 
 combined_landmark_plot
 
+
+#   ----------GRAPHICAL ABSTRACT-------------
+#------------------------------------------------------------------------------
+# Combine all three diagnostic plots into a single figure using patchwork
+
+wrapped_landmark <- wrap_elements(full = combined_landmark_plot)
+
+graphical_abstract <- (loglog_plot + schoenfeld_plot) / (time_dep_hr_plot+wrapped_landmark) +
+  plot_annotation(
+    title = "Violation of Proportional Hazards Assumption in the DIGIT-HF Trial",
+    caption = "Data reconstructed from published K-M curves",
+    theme = theme(
+      plot.title = element_text(size = 18, face = "bold", family = "raleway", hjust = 0.5),
+      plot.caption = element_text(size = 10, family = "raleway", color = "gray40")
+    )
+  )
+
+graphical_abstract
+
 # Optional: save the plot
-# ggsave("landmark_analysis_12m.png", plot = combined_landmark_plot, width = 12, height = 7, dpi = 300, bg = "white")
+# ggsave("graphical_abstratct.png", plot = graphical_abstract, width = 12, height = 7, dpi = 300, bg = "white")
 
 
 
