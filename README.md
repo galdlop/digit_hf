@@ -1,21 +1,68 @@
-# Reproducible analysis: Time-dependent treatment effect in DIGIT-HF trial 
-This repository contains code and reconstructed individual-level data to reproduce the Kaplan–Meier curves reported in the DIGIT-HF trial (Bavendiek et al. in N Engl J Med 2025;393:1155-1165) and to test the proportional-hazards assumption. Analyses include:
+Reproducible Analysis for: “Time-varying Treatment Effects and Violation of Proportional Hazards in the DIGIT-HF Trial”
 
-- Reproduction of published KM curves (from digitized points).
-- Cox proportional-hazards model and Schoenfeld residuals test (cox.zph).
-- Scaled Schoenfeld Residuals vs. Time.
-- Log-Log Survival Curves.
-- Time-varying hazard ratio estimation (Cox with time interaction).
-- Modeling and plotting a Landmark Analysis at 12 months.
-- Plots and scripts to reproduce figures.
+This repository contains the full code, figures, and reconstructed individual-level data used to perform the statistical reanalysis reported in the following manuscript:
 
-**Important note:** Data in `/data/reconstructed_ipd.csv` are reconstructed from published curves (Guyot et al. approach). They are not original patient-level data and should be interpreted accordingly.
+Time-varying Treatment Effects and Violation of Proportional Hazards in the DIGIT-HF Trial
+Preprint posted on medRxiv (2025).
+[Link will be added here once available]
 
-## How to reproduce
+Overview
 
-1. Place your reconstructed IPD (CSV) in `/data/reconstructed_ipd.csv` with columns:
-   - `id` (unique identifier)
-   - `time` (time to event or censoring, same units as figure)
-   - `status` (1=event, 0=censored)
-   - `arm` (0=control/placebo, 1=treatment/digitoxin)
-2. Run the code.
+The objective of this repository is to provide fully transparent and reproducible code for evaluating whether the treatment effect reported in the DIGIT-HF trial is constant over time, and for illustrating how time-varying estimands can complement or refine the original Cox hazard ratio.
+
+The analyses include:
+
+1. Reproduction of trial curves
+
+Reconstruction of individual patient data (IPD)
+from published Kaplan–Meier curves using the Guyot et al. algorithm.
+
+Validation by replicating the original Cox result.
+
+2. Proportional hazards assessment
+
+Cox proportional hazards model
+
+Schoenfeld residuals and cox.zph PH test
+
+Scaled Schoenfeld residuals vs. time
+
+Log–log survival curves
+
+3. Time-varying treatment effect
+
+Flexible parametric survival model (Royston–Parmar, stpm2)
+
+Estimated time-varying hazard ratio HR(t)
+
+Comparison with overall Cox average hazard ratio (AHR)
+
+4. Landmark estimands
+
+Period-specific hazard ratios at 6, 12, 18, and 24 months
+
+Interpretation consistent with modern regulatory and estimand frameworks
+
+5. Code for all figures
+
+All plots used in the manuscript (PH diagnostics, HR(t), log–log curves)
+
+Exported to /figures/ during execution
+
+Important Note on the Data
+
+The file:
+
+/data/reconstructed_ipd.csv
+
+
+contains reconstructed individual-level survival data generated from digitized Kaplan–Meier curves, following the validated method of:
+
+Guyot P, Ades AE, Ouwens MJNM, Welton NJ.
+Enhanced secondary analysis of survival data: reconstructing IPD from published Kaplan–Meier curves.
+BMC Med Res Methodol. 2012.
+
+These are not the original patient-level data from DIGIT-HF.
+Reconstructed IPD allow highly accurate replication of published results but may differ slightly in event times or censoring patterns.
+
+All analyses should be interpreted with this in mind.
