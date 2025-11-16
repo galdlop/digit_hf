@@ -1,4 +1,4 @@
-Reproducible Analysis for: “Time-varying Treatment Effects and Violation of Proportional Hazards in the DIGIT-HF Trial”
+#Reproducible Analysis for: “Time-varying Treatment Effects and Violation of Proportional Hazards in the DIGIT-HF Trial”
 
 This repository contains the full code, figures, and reconstructed individual-level data used to perform the statistical reanalysis reported in the following manuscript:
 
@@ -6,7 +6,7 @@ Time-varying Treatment Effects and Violation of Proportional Hazards in the DIGI
 Preprint posted on medRxiv (2025).
 [Link will be added here once available]
 
-Overview
+#Overview
 
 The objective of this repository is to provide fully transparent and reproducible code for evaluating whether the treatment effect reported in the DIGIT-HF trial is constant over time, and for illustrating how time-varying estimands can complement or refine the original Cox hazard ratio.
 
