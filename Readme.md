@@ -32,11 +32,11 @@ Our re-analysis reveals that the DIGIT-HF trial violates the proportional hazard
 ## 📊 Repository Contents
 
 ### Data
-- `/data/ipd_digit_hf1.csv` - Reconstructed individual patient data using the Guyot et al. (2012) method
+- `/data/reconstructed_ipd.csv` - Reconstructed individual patient data using the Guyot et al. (2012) method
   - **Important:** These are reconstructed data from published Kaplan-Meier curves, not original trial data
 
 ### Code
-- `digit_hf_ph_code.R` - Complete analysis pipeline including:
+- `digit_hf_git_hub.R` - Complete analysis pipeline including:
   - Reproduction of published Kaplan-Meier curves
   - Cox proportional hazards model
   - Formal testing of PH assumption (Schoenfeld residuals)
@@ -79,32 +79,32 @@ pacman::p_load(
 ### Quick Start
 ```r
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/digit-hf-reanalysis.git
-cd digit-hf-reanalysis
+git clone https://github.com/galdlop/digit_hf.git
+cd digit_hf
 
 # Open R/RStudio and run
-source("digit_hf_ph_code.R")
+source("digit_hf_git_hub.R")
 ```
 
 ### Step-by-Step
 
 1. **Clone or download this repository**
 ```bash
-   git clone https://github.com/YOUR_USERNAME/digit-hf-reanalysis.git
+   git clone https://github.com/galdlop/digit_hf.git
 ```
 
 2. **Ensure data file is in place**
-   - The reconstructed IPD should be at: `data/ipd_digit_hf.csv`
+   - The reconstructed IPD should be at: `data/reconstructed_ipd.csv`
    - Columns required:`time`, `event`, `arm`
 
 3. **Run the analysis**
 ```r
    # Open R or RStudio
    # Set working directory to the repository folder
-   setwd("path/to/digit-hf-reanalysis")
+   setwd("path/to/digit_hf")
    
    # Run the complete analysis
-   source("digit_hf_ph_code.R")
+   source("digit_hf_git_hub.R")
 ```
 
 4. **Output**
@@ -114,7 +114,7 @@ source("digit_hf_ph_code.R")
 
 ## 📈 Data Structure
 
-The reconstructed IPD file (`ipd_digit_hf.csv`) contains the following columns:
+The reconstructed IPD file (`reconstructed_ipd.csv`) contains the following columns:
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -183,7 +183,7 @@ We thank the DIGIT-HF investigators for publishing detailed Kaplan-Meier curves 
 
 For questions or collaboration inquiries, please contact:
 - **Corresponding author:** Guillermo Aldama-López (guillermo.aldama.lopez@sergas.es)
-- **Issues:** Use the [GitHub Issues](https://github.com/YOUR_USERNAME/digit-hf-reanalysis/issues) page
+- **Issues:** Use the [GitHub Issues](https://github.com/galdlop/digit_hf/issues) page
 
 ---
 
