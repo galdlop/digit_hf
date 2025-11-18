@@ -1,6 +1,7 @@
 # Revisiting the DIGIT-HF Trial: A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/Code-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 ## 📋 Overview
 
@@ -171,7 +172,12 @@ We welcome feedback and suggestions. Please:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The content of this repository is dual-licensed:
+
+-   The R code (`analysis.R`) is licensed under the **MIT License**.
+-   The data, figures, and all other content are licensed under the **Creative Commons Attribution 4.0 International (CC-BY-4.0) License**.
+
+See the `LICENSE` file for full details.
 
 ## 🙏 Acknowledgments
 
