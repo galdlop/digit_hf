@@ -1,8 +1,6 @@
 # Revisiting the DIGIT-HF Trial: A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects
 
-[![medRxiv preprint](https://img.shields.io/badge/medRxiv-preprint-blue)](LINK_TO_YOUR_MEDRXIV_PREPRINT)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
 ## 📋 Overview
 
