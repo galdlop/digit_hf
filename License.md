@@ -2,7 +2,7 @@ The content of this repository is licensed under two different licenses.
 
 ### Code
 
-All source code, including the R script (`analysis.R`), is licensed under the MIT License:
+All source code, including the R script (`digit_hf_git_hub.R`), is licensed under the MIT License:
 
 Copyright (c) 2025 Guillermo Aldama-López, et al.
 
