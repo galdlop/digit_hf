@@ -45,7 +45,7 @@ tryCatch({
 
 # Load the reconstructed Individual Patient Data (IPD)
 # IMPORTANT: Assumes the CSV file is in the same directory as this script.
-ipd_digit_hf <- read_csv("ipd_digit_hf.csv")
+ipd_digit_hf <- read_csv("reconstructed_ipd.csv")
 
 
 # 2. FIT STANDARD COX MODEL AND TEST PH ASSUMPTION
@@ -380,3 +380,4 @@ graphical_abstract
 
 # Optional: save the plot
 # ggsave("graphical_abstratct.png", plot = graphical_abstract, width = 12, height = 7, dpi = 300, bg = "white")
+
