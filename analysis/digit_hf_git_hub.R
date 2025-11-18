@@ -362,7 +362,7 @@ combined_landmark_plot
 
 #   ----------GRAPHICAL ABSTRACT-------------
 #------------------------------------------------------------------------------
-# Combine all three diagnostic plots into a single figure using patchwork
+# Combine all four plots into a single figure using patchwork
 
 wrapped_landmark <- wrap_elements(full = combined_landmark_plot)
 
@@ -380,4 +380,5 @@ graphical_abstract
 
 # Optional: save the plot
 # ggsave("graphical_abstratct.png", plot = graphical_abstract, width = 12, height = 7, dpi = 300, bg = "white")
+
 
