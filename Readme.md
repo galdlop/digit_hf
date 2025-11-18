@@ -193,5 +193,5 @@ For questions or collaboration inquiries, please contact:
 
 **Disclaimer:** This is an independent methodological re-analysis. The authors have no financial or personal conflicts of interest related to the DIGIT-HF trial or digitoxin.
 
-**Last updated:** [DATE]
+**Last updated:** 18/11/2025
 
