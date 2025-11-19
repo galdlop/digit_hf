@@ -1,7 +1,7 @@
 # Revisiting the DIGIT-HF Trial: A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects
 
 [![License: MIT](https://img.shields.io/badge/Code-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
 
 ## 📋 Overview
 
