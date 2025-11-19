@@ -235,6 +235,14 @@ time_dep_hr_plot <- ggplot(pred_hr, aes(x = time, y = Estimate)) +
 
 time_dep_hr_plot
 
+# Calculating the time during which the upper limit of HR exceeds the threshold of 1
+hr_crosses_1 <- pred_hr %>%
+  filter(lower <= 1 & upper >= 1) %>%
+  slice(1) %>%
+  pull(time)
+
+paste0("The upper limit of the 95% CI for HR crosses the threshold at: ",
+       round(hr_crosses_1,1)," months")
 
 
 # ----- LANDMARK ANALYSIS: 18 MONTHS -----
@@ -380,5 +388,6 @@ graphical_abstract
 
 # Optional: save the plot
 # ggsave("graphical_abstratct.png", plot = graphical_abstract, width = 12, height = 7, dpi = 300, bg = "white")
+
 
 
