@@ -30,4 +30,4 @@ SOFTWARE.
 
 All other content, including the reconstructed data (`reconstructed_ipd.csv`), figures, and text files (e.g., README.md), is licensed under the Creative Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
 
-To view a copy of this license, visit [http://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by-nc/4.0/) or see the full text at https://creativecommons.org/licenses/by/4.0/legalcode.
+To view a copy of this license, visit [http://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by-nc/4.0/).
