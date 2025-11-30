@@ -11,7 +11,7 @@ This repository contains the **complete reproducible analysis** for our methodol
 ```
 Aldama-López G, López-Vázquez D, Rebollal-Leal F. Revisiting the DIGIT-HF Trial: 
 A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects. 
-medRxiv. 2025. doi: [DOI WHEN AVAILABLE]
+medRxiv. 2025. doi: 10.1101/2025.11.22.25339857
 ```
 
 **Original trial:**
