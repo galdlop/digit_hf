@@ -5,7 +5,7 @@
 
 ## 📋 Overview
 
-This repository contains the **complete reproducible analysis** for our methodological re-analysis of the DIGIT-HF trial, available as a preprint on medRxiv: <img width="248" height="324" alt="image" src="https://github.com/user-attachments/assets/c40a314c-c52d-469b-8eff-043a7900c00e" />
+This repository contains the **complete reproducible analysis** for our methodological re-analysis of the DIGIT-HF trial, available as a preprint on medRxiv: https://www.medrxiv.org/content/10.1101/2025.11.22.25339857v1
 .
 
 **Citation:**
