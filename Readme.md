@@ -1,4 +1,4 @@
-# Revisiting the DIGIT-HF Trial: A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects
+# Temporal Dynamics of Clinical Benefit in DIGIT-HF: The Impact of Treatment Persistence
 
 [![License: MIT](https://img.shields.io/badge/Code-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![License: CC BY-NC 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
@@ -10,8 +10,8 @@ This repository contains the **complete reproducible analysis** for our methodol
 
 **Citation:**
 ```
-Aldama-López G, López-Vázquez D, Rebollal-Leal F. Revisiting the DIGIT-HF Trial: 
-A Methodological Re-analysis Demonstrating Time-Dependent Treatment Effects. 
+Aldama-López G, López-Vázquez D, Rebollal-Leal F. Temporal Dynamics of Clinical Benefit in DIGIT-HF: The
+Impact of Treatment Persistence. 
 medRxiv. 2025. doi: 10.1101/2025.11.22.25339857
 ```
 
