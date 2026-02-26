@@ -22,15 +22,7 @@
 # Use pacman to load/install packages
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
-  tidyverse,    # For data manipulation and plotting
-  broom,        # For tidy results
-  survival,     # Core survival analysis functions
-  survminer,    # For survival plots
-  rstpm2,       # For flexible parametric survival models
-  patchwork,    # To combine multiple plots
-  broom,        # To tidy model outputs
-  scales,       # For plot scales
-  showtext      # For custom fonts
+  tidyverse, broom, survival, survminer, rstpm2, patchwork, broom, scales, showtext      
 )
 
 # Optional: Load custom font for aesthetics. 
@@ -388,6 +380,7 @@ graphical_abstract
 
 # Optional: save the plot
 # ggsave("graphical_abstratct.png", plot = graphical_abstract, width = 12, height = 7, dpi = 300, bg = "white")
+
 
 
 
