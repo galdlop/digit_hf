@@ -5,14 +5,7 @@
 
 ## 📋 Overview
 
-This repository contains the **complete reproducible analysis** for our methodological re-analysis of the DIGIT-HF trial, available as a preprint on medRxiv: https://www.medrxiv.org/content/10.1101/2025.11.22.25339857v1
-.
-
-**Citation:**
-```
-Aldama-López G, López-Vázquez D, Rebollal-Leal F. Temporal Dynamics of Clinical Benefit in DIGIT-HF: The
-Impact of Treatment Persistence. 
-medRxiv. 2025. doi: 10.1101/2025.11.22.25339857
+This repository contains the **complete reproducible analysis** for our methodological re-analysis of the DIGIT-HF trial.
 ```
 
 **Original trial:**
